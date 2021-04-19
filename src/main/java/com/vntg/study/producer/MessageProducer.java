@@ -17,6 +17,9 @@ public class MessageProducer {
 	@Autowired
 	private KafkaTemplate<String, Object> greetingKafkaTemplate;
 
+	@Autowired
+	private KafkaTemplate<String, Object> aiteamKafkaTemplate;
+	
 	@Value(value = "${message.topic.name}")
 	private String topicName;
 
@@ -28,6 +31,9 @@ public class MessageProducer {
 
 	@Value(value = "${greeting.topic.name}")
 	private String greetingTopicName;
+
+	@Value(value = "${aiteam.topic.name}")
+	private String aiteamTopicName;
 
 	public void sendMessage(String message) {
 
@@ -58,5 +64,9 @@ public class MessageProducer {
 
 	public void sendGreetingMessage(Object greeting) {
 		greetingKafkaTemplate.send(greetingTopicName, "Davis", greeting);
+	}
+
+	public void sendAiteamMessage(Object json) {
+		aiteamKafkaTemplate.send(aiteamTopicName, "aiteam", json);
 	}
 }
